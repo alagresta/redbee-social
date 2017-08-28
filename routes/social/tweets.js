@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var Twit = require('twit');
-var config = require('../config.sample');
+var config = require('../../config.sample');
 
 // instantiate Twit module
 var twitter = new Twit(config.twitter);
 
-var TWEET_COUNT = 15;
+var TWEET_COUNT = 10;
 var MAX_WIDTH = 305;
 var OEMBED_URL = 'statuses/oembed';
 var USER_TIMELINE_URL = 'statuses/user_timeline';
@@ -71,22 +71,19 @@ router.get('/user_timeline/:user', function(req, res) {
 
 
 
-router.get('/search/:hashtag', function(req, res) {
+router.get('/search/:tag', function(req, res) {
 
 	  var oEmbedTweets = []; 
 	  var tweets = [];
-	var tag = req.params.hashtag;
-	var params =  { q: 'from:'+tag , count: TWEET_COUNT };
+	var tag = req.params.tag;
+	var params =  { q: tag, count: TWEET_COUNT  };
 
 	
 	 // request data 
 	  twitter.get(SEARCH_URL, params, function (err, data, resp) {
 
 	    tweets = data.statuses;
-//	    console.log("ENTRANDO A SEARCH");
-//	    console.log(data.statuses.length)
-//	    console.log(data.statuses);
-//	    
+ 
 	    var i = 0, len = tweets.length;
 
 	    for(i; i < len; i++) {
@@ -119,5 +116,5 @@ router.get('/search/:hashtag', function(req, res) {
 	      }
 	    });
 	  }
-	});
+	})
 module.exports = router;

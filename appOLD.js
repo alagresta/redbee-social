@@ -1,7 +1,7 @@
 var express = require('express');
 var path = require('path');
 var index = require('./routes/index');
-var tweets = require('./routes/tweets');
+var tweets = require('./routes/social/tweets');
 var app = express();
 
 // serve static assets from the public directory
