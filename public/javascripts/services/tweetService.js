@@ -7,10 +7,10 @@
     TweetService.$inject = ['$http','$q'];
     function TweetService($http,$q) {
         var service = {};
-              
+
         var self = this;
 
-        service.GetTweetsByUser = GetTweetsByUser;
+        // service.GetTweetsByUser = GetTweetsByUser;
         service.TweetsByUser = TweetsByUser;
         return service;
 
@@ -18,36 +18,21 @@
       function TweetsByUser(id,page) {
       return $http.get('/api/usersTweets/'+id+'/'+page).then(handleSuccess, handleError('Error getting user by username'));
   }
-        
-        function GetTweetsByUser(id,page) {
-                  var deferred = $q.defer();
-                  $http.get('/api/usersTweets/'+id+'/'+page)
-                      .success(function(response) {
-                      	if (response.status != 200) {
-      						deferred.reject(response);
-      					}
-                          deferred.resolve(response);
-                      })
-                      .error(function(response) {
-                          deferred.reject(response);
-                      });
 
-                  return deferred.promise;
-              }
-              
-        
+
+
         function GetIndex() {
             return $http.get(appPath+'usuarios').success(function (response) {
             	service.Index = response.data
             });
         }
 
-    
-        
+
+
         function MassiveActivation(data) {
 
             var deferred = $q.defer();
-     
+
 			//$http.post(appPath + 'guardarUsuario', user)
             $http({
             method: 'POST',
@@ -55,7 +40,7 @@
             headers: { 'Content-Type' : 'application/x-www-form-urlencoded'},
             data: $.param(data),
             config:{timeout:100},
-            
+
             })
                 .success(function(response) {
                 	if (response.status != 200) {
@@ -70,14 +55,14 @@
 
             return deferred.promise;
         }
-        
-        
-        
-        
+
+
+
+
         function Update(user) {
 
             var deferred = $q.defer();
-     
+
 			//$http.post(appPath + 'guardarUsuario', user)
             $http({
             method: 'POST',
@@ -85,7 +70,7 @@
             headers: { 'Content-Type' : 'application/x-www-form-urlencoded'},
             data: $.param(user),
             config:{timeout:100},
-            
+
             })
                 .success(function(response) {
                 	if (response.status != 200) {
@@ -100,7 +85,7 @@
 
             return deferred.promise;
         }
-        
+
         // private functions
 
         function handleSuccess(res) {

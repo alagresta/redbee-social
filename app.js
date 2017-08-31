@@ -5,8 +5,13 @@
 var express    = require('express');        // call express
 var app        = express();                 // define our app using express
 var bodyParser = require('body-parser');
+var scheduler  = require('node-schedule');
+var appConfig = require('./config.sample');
+var poolTweets = require('./utils/poolTweets');
 var apiRootURL = '/api';
 var path = require('path');
+
+
 
 //configure app to use bodyParser()
 //this will let us get the data from a POST
@@ -37,13 +42,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //look for view html in the views directory
 app.set('views', path.join(__dirname, 'views'));
-//use ejs to render 
+//use ejs to render
 app.set('view engine', 'ejs');
+
 
 // more routes for our API will happen here
 module.exports = app;
+
+
+
 
 // START THE SERVER
 // =============================================================================
 app.listen(port);
 console.log('Rest api started at:  ' + port);
+
+var int = 1;
+
+var montlyJob = scheduler.scheduleJob(appConfig.schedulerConfig.timeConfig, function(){
+  console.log('starting scheduleJob...');
+ poolTweets.updateTweets();
+});

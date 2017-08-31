@@ -1,9 +1,9 @@
-//llamamos al paquete mysql 
+//llamamos al paquete mysql
 var mysql = require('mysql');
 var config = require('../config.sample');
-//creamos la csonexion 
+//creamos la csonexion
 connection = mysql.createConnection(config.connectionData);
-var ITEMS_PER_PAGE = 10;
+var ITEMS_PER_PAGE = 20;
 
 //creo un objeto para ir almacenando todo
 var twitterModel = {};
@@ -13,16 +13,16 @@ var twitterModel = {};
 //obtenemos un usuario por su id
 twitterModel.geTweetsByUser = function(id,page,callback)
 {
-	if (connection) 
+	if (connection)
 	{
 		var offset = (page-1) * ITEMS_PER_PAGE;
-		
-	
-		var sql = 'SELECT * FROM tweets_view WHERE userid = ' + connection.escape(id) 
-		+ 'GROUP BY id, userid order by id DESC'+
+
+
+		var sql = 'SELECT * FROM redbee.tweet_posts WHERE user_id =' + id
+		+ ' order by id_str DESC '+
 		' LIMIT '+offset+','+ITEMS_PER_PAGE
 		;
-		connection.query(sql, function(error, row) 
+		connection.query(sql, function(error, row)
 		{
 			if(error)
 			{
@@ -30,6 +30,7 @@ twitterModel.geTweetsByUser = function(id,page,callback)
 			}
 			else
 			{
+				console.log(row);
 				callback(null, row);
 			}
 		});
@@ -39,57 +40,41 @@ twitterModel.geTweetsByUser = function(id,page,callback)
 //añadir un nuevo usuario
 twitterModel.insertTweet = function(tweetdata,callback)
 {
-	if (connection) 
+	if (connection)
 	{
-		var queryInsert = 'INSERT INTO tweets'
+		var queryInsert = 'INSERT INTO redbee.tweet_posts'
 		+"  VALUES "
-		+ "("+tweetdata.id+','
+		+ "("+tweetdata.string_id+','
 		+ tweetdata.userid+','
 		+ "'"+tweetdata.tag+"'"+','
 		+ "STR_TO_DATE('"+tweetdata.created_at+"', '%a %b %d %H:%i:%s +0000 %Y'),'"
-		+ tweetdata.oEmbed+"')"
+		+ (tweetdata.oEmbed).replace('\n','') +"',"
+ 		+tweetdata.id+")"
 		;
-	
-		var sqlExists = 'SELECT * FROM tweets WHERE 	id = ' + tweetdata.id;
-		
-		connection.query(sqlExists, function(err, row) 
+
+		var sqlExists = 'SELECT * FROM redbee.tweet_posts WHERE 	id_str = ' + tweetdata.string_id;
+
+		connection.query(sqlExists, function(err, row)
 		{
 			//si existe la id del usuario a eliminar
 			if(row.length>0)
 			{
-				console.log('repeted '+tweetdata.tweetid);	
+				console.log('repeted '+tweetdata.tweetid);
 				callback(null,{"msg":"reapeted id"});
-				
-			}
-			else
-			{
-				
-				
-				
-				connection.query(queryInsert, function(error, result) 
-						{
-							if(error)
-							{
-								console.log( error);
-								callback(null,{"msg":"reapeted id"});
-							
-							}
-							else
-							{
-								console.log('inserted ' +  tweetdata.id);	
-								//devolvemos la última id insertada
-								callback(null,{"insertId" : result.insertId});
-								
-								
-							}
-						});
-				
-			
+			}	else {
+				connection.query(queryInsert, function(error, result)
+				{
+					if(error) {
+						console.log( error);
+						callback(null,{"msg":"reapeted id"});
+					} else {
+						console.log('inserted ' +  tweetdata.id +'str_id: '+tweetdata.	string_id);
+						//devolvemos la última id insertada
+						callback(null,{"insertId" : result.insertId});
+					}
+				});
 			}
 		});
-		
-		
-	
 	}
 }
 
@@ -101,22 +86,22 @@ twitterModel.deleteTweetsByUserTag = function(uid,tag, callback)
 {
 	if(connection)
 	{
-		
-			//si existe la id del usuario a eliminar
-			
-				var sql = 'DELETE FROM tweets WHERE userid = ' + connection.escape(uid)+" AND tag ="+ tag +"'";
-				connection.query(sql, function(error, result) 
-				{
-					if(error)
-					{
-						throw error;
-					}
-					else
-					{
-						callback(null,{"msg":"deleted tweets for user"+uid+ +" and tag : "+tag});
-					}
-				});
+
+		//si existe la id del usuario a eliminar
+
+		var sql = 'DELETE FROM tweets WHERE user_id = ' + connection.escape(uid)+" AND tag ="+ tag +"'";
+		connection.query(sql, function(error, result)
+		{
+			if(error)
+			{
+				throw error;
 			}
+			else
+			{
+				callback(null,{"msg":"deleted tweets for user"+uid+ +" and tag : "+tag});
+			}
+		});
+	}
 
 }
 

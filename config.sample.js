@@ -14,11 +14,15 @@ module.exports = {
 		},
 
 	connectionData:
-	{ 
-		host: '127.0.0.1', 
-		user: 'root',  
-		password: '', 
-		database: 'redbee'
+	{
+		host: '127.0.0.1',
+		user: 'root',
+		password: '',
+		database: 'redbee',
+		supportBigNumbers:true
+	},
+	schedulerConfig:{
+		timeConfig:'*/10 * * * *',
 	}
 
 };
