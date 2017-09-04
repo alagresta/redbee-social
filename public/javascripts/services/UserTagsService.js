@@ -13,6 +13,7 @@
     service.GetUserById = GetUserById;
     service.GetUserByUserName = GetUserByUserName;
     service.GetTagsByUserId = GetTagsByUserId;
+      service.DeleteTag = DeleteTag;
     return service;
 
 
@@ -25,6 +26,10 @@
     }
     function GetTagsByUserId(id) {
       return $http.get('/api/interest/'+id).then(handleSuccess, handleError('Error getting user by username'));
+    }
+
+    function DeleteTag(data) {
+      return $http.get('/api/interest/').then(handleSuccess, handleError('Error getting user by username'));
     }
 
     // private functions

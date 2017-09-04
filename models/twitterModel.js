@@ -30,7 +30,7 @@ twitterModel.geTweetsByUser = function(id,page,callback)
 			}
 			else
 			{
-				console.log(row);
+				//console.log(row);
 				callback(null, row);
 			}
 		});

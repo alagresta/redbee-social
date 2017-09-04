@@ -12,12 +12,18 @@
 
         // service.GetTweetsByUser = GetTweetsByUser;
         service.TweetsByUser = TweetsByUser;
+
         return service;
 
 
       function TweetsByUser(id,page) {
       return $http.get('/api/usersTweets/'+id+'/'+page).then(handleSuccess, handleError('Error getting user by username'));
   }
+
+
+  function DeleteTag(id,page) {
+  return $http.delete('/api/usersTweets/'+id+'/'+page).then(handleSuccess, handleError('Error getting user by username'));
+}
 
 
 

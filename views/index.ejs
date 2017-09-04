@@ -12,7 +12,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-resource.min.js"></script>
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-sanitize.js"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4//angular-route.min.js"></script>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.7.0/moment.min.js"></script>
   <!-- <script src="//platform.twitter.com/widgets.js"></script> -->
   <script src="/javascripts/angular-app.js"></script>
@@ -27,7 +27,6 @@
 </head>
 <body>
 
-  <!-- the root element of the view assigned to the TweetList javascript controller-->
   <div ng-controller="TweetList as TWList">
 
     <div class="row">
@@ -39,7 +38,7 @@
     <div class="row">
       <div class="btn-group btn-group-lg">
       <span ng-repeat="tag in TWList.taglist">
-<button type="button" class="btn btn-default"> {{tag.tag}}
+<button type="button" class="btn btn-default" ng-click="TWList.deleteTag(tag);"> {{tag.tag}}   <i class="fa fa-times-circle-o" aria-hidden="true" style="font-size:15px" ></i>
 <span class="glyphicon glyphicon-remover" aria-hidden="true"></span>
   </button>
       </span>
@@ -49,43 +48,30 @@
 <br>
     <div id="search-container" class="row">
       <div class="col-lg-3">
-
         <!-- this form will trigger the getTweets function in the javascript controller on submit -->
         <form class="input-group" ng-submit="TWList.getTweets()" >
           <span class="input-group-addon">@</span>
-
           <!-- this text input is binded to a variable in the javascript controller -->
           <input type="text" class="form-control" placeholder="TwitterDev" ng-model="TWList.username">
-
           <span class="input-group-btn">
             <button class="btn btn-default" type="submit">Get Tweets</button>
           </span>
-
         </form>
       </div>
     </div>
 
     <div class="row clearfix">
       <div class="col-lg-12">
-
         <div id="tweet-list">
-
-          <!-- this div will repeat for every tweet object in the array using a template-expanding directive -->
           <div ng-repeat="tweet in TWList.tweetsResult" class="tweet-item" repeat-end="TWList.startLayout()">
-
             <twitter-widget twitter-widget-id="tweet.tweet_id">  </twitter-widget>
           </div>
-
-          <!-- <div ng-bind-html="TWList.aResult "></div> -->
         </div>
-
       </div>
     </div>
 
     <div class="row">
       <div class="col-lg-12">
-
-        <!-- this button will trigger the getMoreTweets function in the javascript controller -->
         <button type="button" class="load-more-btn btn btn-default" ng-click="TWList.getMoreTweets()">Get More Tweets</button>
 
       </div>
