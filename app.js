@@ -18,8 +18,13 @@ var path = require('path');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var port = process.env.PORT || 8080;        // set our port
+//var port = process.env.PORT || 8080;        // set our port
 
+
+
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
+ 
 
 
 
@@ -55,6 +60,13 @@ module.exports = app;
 // START THE SERVER
 // =============================================================================
 app.listen(port);
+
+
+app.listen(server_port, server_ip_address, function () {
+	  console.log( "Listening on " + server_ip_address + ", port " + server_port )
+	});
+
+
 console.log('Rest api started at:  ' + port);
 
 var int = 1;
