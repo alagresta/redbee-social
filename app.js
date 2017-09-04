@@ -59,7 +59,7 @@ module.exports = app;
 
 // START THE SERVER
 // =============================================================================
-app.listen(port);
+//app.listen(port);
 
 
 app.listen(server_port, server_ip_address, function () {
@@ -67,7 +67,7 @@ app.listen(server_port, server_ip_address, function () {
 	});
 
 
-console.log('Rest api started at:  ' + port);
+//console.log('Rest api started at:  ' + port);
 
 var int = 1;
 
