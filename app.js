@@ -22,9 +22,9 @@ app.use(bodyParser.json());
 
 
 
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 80
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
- 
+var server_port = 80 || 8080;
+var server_ip_address = '172.16.6.18' || '127.0.0.1';
+
 
 
 
