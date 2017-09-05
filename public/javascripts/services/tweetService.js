@@ -20,17 +20,6 @@
       return $http.get('/api/usersTweets/'+id+'/'+page).then(handleSuccess, handleError('Error getting user by username'));
   }
 
-
-  function DeleteTag(id,page) {
-  return $http.delete('/api/usersTweets/'+id+'/'+page).then(handleSuccess, handleError('Error getting user by username'));
-}
-
-
-function AddTag(id,page) {
-return $http.put('/api/usersTweets/'+id+'/'+page).then(handleSuccess, handleError('Error getting user by username'));
-}
-
-
         function GetIndex() {
             return $http.get(appPath+'usuarios').success(function (response) {
             	service.Index = response.data

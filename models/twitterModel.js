@@ -18,8 +18,8 @@ twitterModel.geTweetsByUser = function(id,page,callback)
 		var offset = (page-1) * ITEMS_PER_PAGE;
 
 
-		var sql = 'SELECT * FROM redbee.tweet_posts WHERE user_id =' + id
-		+ ' order by id_str DESC '+
+		var sql = 'SELECT * FROM redbee.tweets_view WHERE user_id =' + id
+	+
 		' LIMIT '+offset+','+ITEMS_PER_PAGE
 		;
 		connection.query(sql, function(error, row)
@@ -49,7 +49,7 @@ twitterModel.insertTweet = function(tweetdata,callback)
 		+ "'"+tweetdata.tag+"'"+','
 		+ "STR_TO_DATE('"+tweetdata.created_at+"', '%a %b %d %H:%i:%s +0000 %Y'),'"
 		+ (tweetdata.oEmbed).replace('\n','') +"',"
- 		+tweetdata.id+")"
+ 		+tweetdata.id+",'"
 		;
 
 		var sqlExists = 'SELECT * FROM redbee.tweet_posts WHERE 	id_str = ' + tweetdata.string_id;

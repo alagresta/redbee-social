@@ -22,10 +22,21 @@ blockquote.twitter-tweet {
 }*/
 
 twitterwidget{
-  max-width: 360px!important;
-   min-width: 340px!important;
+  max-width: 380px!important;
+   min-width: 360px!important;
 
 }
+
+
+
+label.hash {
+    /* Add shadows to create the "card" effect */
+    background-color: white;
+    padding: 2px 4px 2px 4px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+
+}
+
 
 a {
 	text-decoration: none;

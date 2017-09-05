@@ -1,7 +1,7 @@
-//llamamos al paquete mysql 
+//llamamos al paquete mysql
 var mysql = require('mysql');
 var config = require('../config.sample');
-//creamos la conexion 
+//creamos la conexion
 connection = mysql.createConnection(config.connectionData);
 
 //creo un objeto para ir almacenando todo
@@ -10,10 +10,10 @@ var interestModel = {};
 //obtenemos un usuario por su id
 interestModel.getUserSub = function(id,callback)
 {
-	if (connection) 
+	if (connection)
 	{
 		var sql = 'SELECT * FROM subscriptions WHERE userid = ' + connection.escape(id);
-		connection.query(sql, function(error, row) 
+		connection.query(sql, function(error, row)
 		{
 			if(error)
 			{
@@ -31,11 +31,16 @@ interestModel.getUserSub = function(id,callback)
 /*
  * userData {network, tag, userid}
  */
-interestModel.insertSub = function(userData,callback)
+interestModel.insertSub = function(id,tag,nw,callback)
 {
-	if (connection) 
+	if (connection)
 	{
-		connection.query('INSERT INTO subscription SET ?', userData, function(error, result) 
+
+		var query = 'INSERT INTO subscription SET VALUES '+
+			id+",'"+tag+"','"+nw+"'";
+
+		;
+		connection.query(query, function(error, result)
 		{
 			if(error)
 			{
@@ -56,19 +61,19 @@ interestModel.deleteSub = function(tag,userId,nw, callback)
 {
 	if(connection)
 	{
-		var sqlExists = 'SELECT * FROM subscriptions WHERE userid = ' + connection.escape(userId) + 
+		var sqlExists = 'SELECT * FROM subscriptions WHERE userid = ' + connection.escape(userId) +
 		' AND tag='+ connection.escape(tag) +
-		' AND network= ' + connection.escape(nw)
+		" AND network= '"+nw+"'";
 		;
-		connection.query(sqlExists, function(err, row) 
+		connection.query(sqlExists, function(err, row)
 		{
 			//si existe el tag en el usuario
 			if(row)
 			{
-				var sql = 'DELETE FROM subscriptions WHERE userid = ' + connection.escape(userId) + 
+				var sql = 'DELETE FROM subscriptions WHERE userid = ' + connection.escape(userId) +
 				' AND tag='+ connection.escape(tag) +
 				' AND network= ' + connection.escape(nw);
-				connection.query(sql, function(error, result) 
+				connection.query(sql, function(error, result)
 				{
 					if(error)
 					{

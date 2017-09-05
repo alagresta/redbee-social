@@ -28,9 +28,16 @@
       return $http.get('/api/interest/'+id).then(handleSuccess, handleError('Error getting user by username'));
     }
 
-    function DeleteTag(data) {
-      return $http.get('/api/interest/').then(handleSuccess, handleError('Error getting user by username'));
+    function DeleteTag(id) {
+      return $http.delete('/api/interest/'+id).then(handleSuccess, handleError('Error getting user by username'));
     }
+
+    function AddTagToUser(id,userID) {
+    return $http.put('/api/interest/'+id+'/'+userID).then(handleSuccess, handleError('Error getting user by username'));
+    }
+
+
+
 
     // private functions
 

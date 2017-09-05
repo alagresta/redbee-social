@@ -69,7 +69,7 @@ if(data[j].oEmbed){
                 tag : data[j].userTag,
                 created_at : data[j].created_at,
                 oEmbed : data[j].oEmbed.html,
-                string_id: data[j].id
+                string_id: data[j].id,
               }
               tweets.push(newTweet);
 
