@@ -1,7 +1,7 @@
 var InterestModel = require('../models/interestModel');
 var TwUtil = require('../utils/twitterUtils');
 var TwitterModel = require('../models/twitterModel');
-var userModel = require('../models/UserModel');
+var userModel = require('../models/userModel');
 var Async = require('async');
 
 var poolTweets = {};

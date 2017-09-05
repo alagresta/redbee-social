@@ -14,15 +14,11 @@
     vm.taglist=[];
     vm.listID=[];
 
-    /* init controller and set defaults
-    */
-
     function init () {
-      // set a default username value
+
       UserTagsService.GetUserByUserName('alagresta').then(
         function(response) {
           vm.user=response.data;
-
           getTags(vm.user.id);
           getTweets(vm.page);
         },
@@ -34,12 +30,12 @@
       }
 
       vm.startLayout = function(){
-        setTimeout(startLayoutConfig, 3000)
+        setTimeout(startLayoutConfig, 3500)
       }
       function    startLayoutConfig(){
         // initiate masonry.js
         vm.msnry = new Masonry('#tweet-list', {
-          columnWidth: 260,
+          columnWidth: 200,
           itemSelector: '.tweet-item',
           transitionDuration: 0,
           isFitWidth: true
