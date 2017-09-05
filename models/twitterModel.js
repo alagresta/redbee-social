@@ -48,8 +48,7 @@ twitterModel.insertTweet = function(tweetdata,callback)
 		+ tweetdata.userid+','
 		+ "'"+tweetdata.tag+"'"+','
 		+ "STR_TO_DATE('"+tweetdata.created_at+"', '%a %b %d %H:%i:%s +0000 %Y'),'"
-		+ (tweetdata.oEmbed).replace('\n','') +"',"
- 		+tweetdata.id+"')"
+		+ (tweetdata.oEmbed).replace('\n','') +"'," +tweetdata.id+ ")"
 		;
 
 		var sqlExists = 'SELECT * FROM redbee.tweet_posts WHERE 	id_str = ' + tweetdata.string_id;
