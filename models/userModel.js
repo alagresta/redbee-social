@@ -1,13 +1,17 @@
-//llamamos al paquete mysql
+/**
+ * @author A.Lagresta
+ * @name User Data Model
+ * created on 21.8.2017
+ * @description database model for User entity
+*/
 var mysql = require('mysql');
 var config = require('../config.sample');
-//creamos la conexion
 connection = mysql.createConnection(config.connectionData);
 
-//creo un objeto para ir almacenando todo
+
 var userModel = {};
 
-//obtenemos todos los usuarios
+// All users
 userModel.getUsers = function(callback)
 {
 	if (connection)
@@ -25,7 +29,7 @@ userModel.getUsers = function(callback)
 	}
 }
 
-//obtenemos un usuario por su id
+// User by id
 userModel.getUserById = function(id,callback)
 {
 	if (connection)
@@ -46,7 +50,7 @@ userModel.getUserById = function(id,callback)
 }
 
 
-//obtenemos un usuario por su id
+// User by username
 userModel.getUserByUName = function(username,callback)
 {
 	if (connection)
@@ -68,7 +72,7 @@ userModel.getUserByUName = function(username,callback)
 
 
 
-//añadir un nuevo usuario
+// insert User
 userModel.insertUser = function(userData,callback)
 {
 	if (connection)
@@ -88,7 +92,7 @@ userModel.insertUser = function(userData,callback)
 	}
 }
 
-//actualizar un usuario
+// Update user
 userModel.updateUser = function(userData, callback)
 {
 	//console.log(userData); //return;
@@ -116,7 +120,7 @@ userModel.updateUser = function(userData, callback)
 	}
 }
 
-//eliminar un usuario pasando la id a eliminar
+// Delete user
 userModel.deleteUser = function(id, callback)
 {
 	if(connection)

@@ -1,3 +1,10 @@
+/**
+ * @author A.Lagresta
+ * @name Index api
+ * created on 19.8.2017
+ * @description Api inde , used for data initialization
+*/
+
 var express = require('express');
 var InterestModel = require('../models/interestModel');
 var TwUtil = require('../utils/twitterUtils');
@@ -23,7 +30,7 @@ router.get('/init/:userid', function(req, res) {
 				var aTag =tags[i].tag;
 				console.log(aTag);
 
-				TwUtil.tweetsByTag(aTag, '', function(error, data) {
+				TwUtil.tweetsByTag(aTag,'', '', function(error, data) {
 					if (data) {
 
 						var tweets = [];

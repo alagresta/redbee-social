@@ -1,3 +1,10 @@
+/**
+ * @author A.Lagresta
+ * @name Twetter api client
+ * created on 19.8.2017
+ * @description Twitter client class
+*/
+
 var express = require('express');
 var router = express.Router();
 var Twit = require('twit');
@@ -29,7 +36,7 @@ router.get('/user_timeline/:user', function(req, res) {
     params.max_id = req.query.max_id;
   }
 
-  // request data 
+  // request data
   twitter.get(USER_TIMELINE_URL, params, function (err, data, resp) {
 
     tweets = data;
@@ -54,7 +61,7 @@ router.get('/user_timeline/:user', function(req, res) {
       "omit_script": true
     };
 
-    // request data 
+    // request data
     twitter.get(OEMBED_URL, params, function (err, data, resp) {
       tweet.oEmbed = data;
       oEmbedTweets.push(tweet);
@@ -73,24 +80,24 @@ router.get('/user_timeline/:user', function(req, res) {
 
 router.get('/search/:tag', function(req, res) {
 
-	  var oEmbedTweets = []; 
+	  var oEmbedTweets = [];
 	  var tweets = [];
 	var tag = req.params.tag;
 	var params =  { q: tag, count: TWEET_COUNT  };
 
-	
-	 // request data 
+
+	 // request data
 	  twitter.get(SEARCH_URL, params, function (err, data, resp) {
 
 	    tweets = data.statuses;
- 
+
 	    var i = 0, len = tweets.length;
 
 	    for(i; i < len; i++) {
 	      getOEmbed(tweets[i]);
 	    }
 	  });
-	
+
 	  /**
 	   * requests the oEmbed html
 	   */
@@ -104,7 +111,7 @@ router.get('/search/:tag', function(req, res) {
 	      "omit_script": true
 	    };
 
-	    // request data 
+	    // request data
 	    twitter.get(OEMBED_URL, params, function (err, data, resp) {
 	      tweet.oEmbed = data;
 	      oEmbedTweets.push(tweet);

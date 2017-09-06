@@ -1,13 +1,20 @@
-//llamamos al paquete mysql
+/**
+ * @author A.Lagresta
+ * @name Interest Data Model
+ * created on 20.8.2017
+ * @description database model for Interest entity
+*/
 var mysql = require('mysql');
 var config = require('../config.sample');
-//creamos la conexion
 connection = mysql.createConnection(config.connectionData);
 
-//creo un objeto para ir almacenando todo
 var interestModel = {};
 
-//obtenemos un usuario por su id
+
+/**
+ * @description  get subscriptions by user id
+ * @param user id
+*/
 interestModel.getUserSub = function(id,callback)
 {
 	if (connection)
@@ -27,19 +34,19 @@ interestModel.getUserSub = function(id,callback)
 	}
 }
 
-//Add new interest
-/*
- * userData {network, tag, userid}
- */
+
+/**
+ * @description  get subscriptions by user id
+ * @param user id
+ * @param hashtag/user
+ * @param network
+*/
 interestModel.insertSub = function(id,tag,nw,callback)
 {
 	if (connection)
 	{
-
-		var query = 'INSERT INTO subscription SET VALUES '+
-			id+",'"+tag+"','"+nw+"'";
-
-		;
+		var query = 'INSERT INTO subscription VALUES '+
+			"("+id+",'"+tag+"','"+nw+"')";
 		connection.query(query, function(error, result)
 		{
 			if(error)
@@ -48,50 +55,39 @@ interestModel.insertSub = function(id,tag,nw,callback)
 			}
 			else
 			{
-				//devolvemos la última id insertada
 				callback(null,{"insertId" : result.insertId});
 			}
 		});
 	}
 }
 
-
-//eliminar un usuario pasando la id a eliminar
-interestModel.deleteSub = function(tag,userId,nw, callback)
+/**
+ * @description  delete subscriptions
+ * @param user id
+ * @param hashtag/user
+ * @param network
+*/
+interestModel.deleteSub = function(userID,tag,nw,callback)
 {
-	if(connection)
-	{
-		var sqlExists = 'SELECT * FROM subscriptions WHERE userid = ' + connection.escape(userId) +
-		' AND tag='+ connection.escape(tag) +
-		" AND network= '"+nw+"'";
-		;
-		connection.query(sqlExists, function(err, row)
-		{
-			//si existe el tag en el usuario
-			if(row)
-			{
-				var sql = 'DELETE FROM subscriptions WHERE userid = ' + connection.escape(userId) +
-				' AND tag='+ connection.escape(tag) +
-				' AND network= ' + connection.escape(nw);
+
+				var sql = 'DELETE FROM subscriptions WHERE userid = '+ userID +
+				" AND tag='"+ tag +"'"+
+				" AND network= '"+nw+"'";
+
+
 				connection.query(sql, function(error, result)
 				{
 					if(error)
 					{
-						throw error;
+							throw error;
 					}
 					else
 					{
-						callback(null,{"msg":"deleted"});
+						callback(null,[{"msg":"deleted"}]);
 					}
 				});
-			}
-			else
-			{
-				callback(null,{"msg":"notExist"});
-			}
-		});
-	}
+
+
 }
 
-//exportamos el objeto para tenerlo disponible en la zona de rutas
 module.exports = interestModel;

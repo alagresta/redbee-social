@@ -13,7 +13,7 @@
     service.GetUserById = GetUserById;
     service.GetUserByUserName = GetUserByUserName;
     service.GetTagsByUserId = GetTagsByUserId;
-      service.DeleteTag = DeleteTag;
+    service.DeleteTag = DeleteTag;
     return service;
 
 
@@ -28,12 +28,16 @@
       return $http.get('/api/interest/'+id).then(handleSuccess, handleError('Error getting user by username'));
     }
 
-    function DeleteTag(id) {
-      return $http.delete('/api/interest/'+id).then(handleSuccess, handleError('Error getting user by username'));
+    function DeleteTag(tagID, userID) {
+      var data = {
+        "tag":tagID,
+        "userID":userID
+      }
+      return $http.post('/api/interest/', data).then(handleSuccess, handleError('error on delete'));
     }
 
     function AddTagToUser(id,userID) {
-    return $http.put('/api/interest/'+id+'/'+userID).then(handleSuccess, handleError('Error getting user by username'));
+      return $http.put('/api/interest/'+id+'/'+userID).then(handleSuccess, handleError('Error getting user by username'));
     }
 
 

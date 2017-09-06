@@ -1,145 +1,150 @@
 var express = require('express');
 var insterest = require('../models/interestModel');
+
+var twitterModel = require('../models/twitterModel');
 var router = express.Router();
 
 
 //mostramos todos los usuarios
-	router.get('/interest', function(req,res){
-		insterest.getUsers(function(error, data)
-		{
-			res.json(200,data);
-		});
+router.get('/interest', function(req,res){
+	insterest.getUsers(function(error, data)
+	{
+		res.json(200,data);
 	});
+});
 
-//obtiene un usuario por id
-	router.get("/interest/:userId", function(req,res)
+
+/**
+* @description  get subscriptions by user id
+* @param user id
+*/
+router.get("/interest/:userId", function(req,res)
+{
+
+	var id = req.params.userId;
+	// if numeric value
+	if(!isNaN(id))
+	{
+		insterest.getUserSub(id,function(error, data)
+		{
+			if (typeof data !== 'undefined' && data.length > 0)
 			{
-				//id del usuario
-				var id = req.params.userId;
-				//solo actualizamos si la id es un número
-				if(!isNaN(id))
+				res.json(200,data);
+			}
+			else
+			{
+				res.json(404,{"msg":"notExist"});
+			}
+		});
+	}
+	else
+	{
+		res.json(500,{"msg":"Error"});
+	}
+});
+
+/**
+* @description  get tweets by subscriptions and user id
+* @param user id
+*/
+router.get("/interest/tweets/:userId", function(req,res)
+{
+	var id = req.params.userId;
+	if(!isNaN(id))
+	{
+		insterest.getUserSub(id,function(error, data)
+		{
+			if (typeof data !== 'undefined' && data.length > 0)
+			{
+				res.json(200,data);
+			}
+			else
+			{
+				res.json(404,{"msg":"notExist"});
+			}
+		});
+	}
+	else
+	{
+		res.json(500,{"msg":"Error"});
+	}
+});
+
+
+/**
+* @description  add subscriptions and user id
+* @param user id
+* @param tag
+*/
+router.put("/interest/:userId/:tag", function(req,res)
+{
+	//id del usuario
+	var id = req.params.userId;
+	var tag = req.params.tag;
+	var nw = 'tw';
+
+	if(!isNaN(id))
+	{
+		insterest.insertSub(id,tag,nw,function(error, data)
+		{
+			if (typeof data !== 'undefined' && data.length > 0)
+			{
+				res.json(200,data);
+			}
+			else
+			{
+				res.json(404,{"msg":"notExist"});
+			}
+		});
+	}
+	else
+	{
+		res.json(500,{"msg":"Error"});
+	}
+});
+
+
+
+/**
+* @description  delete subscriptions and user id
+* @param user id
+* @param tag
+*/
+router.post("/interest", function(req,res)
+{
+	//id del usuario
+	var user_id = req.body.userID;
+	var tag = req.body.tag;
+	var nw = 'tw';
+		insterest.deleteSub(user_id,tag,nw,function(error, data)
+		{
+			console.log(data);
+			if (typeof data !== 'undefined' && data.length > 0)
+			{
+				twitterModel.deleteTweetsByUserTag(user_id,tag,function(error, data)
 				{
-					insterest.getUserSub(id,function(error, data)
+					console.log(data);
+					if (typeof data !== 'undefined' && data.length > 0)
 					{
-						//si el usuario existe lo mostramos en formato json
-						if (typeof data !== 'undefined' && data.length > 0)
-						{
-							res.json(200,data);
-
-
-						}
-						//en otro caso mostramos una respuesta conforme no existe
-						else
-						{
-							res.json(404,{"msg":"notExist"});
-						}
-					});
-				}
-				//si hay algún error
-				else
-				{
-					res.json(500,{"msg":"Error"});
-				}
-			});
-
-	//obtiene un usuario por id
-		router.get("/interest/tweets/:userId", function(req,res)
-				{
-					//id del usuario
-					var id = req.params.userId;
-					//solo actualizamos si la id es un número
-					if(!isNaN(id))
-					{
-						insterest.getUserSub(id,function(error, data)
-						{
-							//si el usuario existe lo mostramos en formato json
-							if (typeof data !== 'undefined' && data.length > 0)
-							{
-								res.json(200,data);
-
-
-							}
-							//en otro caso mostramos una respuesta conforme no existe
-							else
-							{
-								res.json(404,{"msg":"notExist"});
-							}
-						});
+						res.json(200,data);
 					}
-					//si hay algún error
 					else
 					{
-						res.json(500,{"msg":"Error"});
+						res.json(404, "error deleting tag tweets");
 					}
 				});
-
-
-		//obtiene un usuario por su id
-			router.post("/postByinterest", function(req,res)
+				res.json(200,data);
+			}
+			else
 			{
-				//creamos un objeto con los datos a insertar del usuario
-				var userData = {
-				/*	id : null,
-					username : req.body.username,
-					email : req.body.email,
-					password : req.body.password,
-					created_at : null,
-					updated_at : null*/
+				res.json(404, "object does not exist");
+			}
+		});
 
-//					id : null,
-					username : req.body.username,
-					name:req.body.name ,
-					lastname:req.body.lastname,
-					email : req.body.email
+});
 
 
-				};
-				console.log(userData);
-				UserModel.insertUser(userData,function(error, data)
-				{
-					//si el usuario se ha insertado correctamente mostramos su info
-					if(data && data.insertId)
-					{
-						res.redirect("/users/" + data.insertId);
-					}
-					else
-					{
-						res.json(500,{"msg":"Error"});
-					}
-				});
-			});
 
-			router.put("/interest/:userId/:tag", function(req,res)
-					{
-						//id del usuario
-						var id = req.params.userId;
-						var tag = req.params.tag;
-						var nw = 'tw';
-						//solo actualizamos si la id es un número
-						if(!isNaN(id))
-						{
-							insterest.insertSub(id,tag,nw,function(error, data)
-							{
-								//si el usuario existe lo mostramos en formato json
-								if (typeof data !== 'undefined' && data.length > 0)
-								{
-									res.json(200,data);
-
-
-								}
-								//en otro caso mostramos una respuesta conforme no existe
-								else
-								{
-									res.json(404,{"msg":"notExist"});
-								}
-							});
-						}
-						//si hay algún error
-						else
-						{
-							res.json(500,{"msg":"Error"});
-						}
-					});
 
 
 module.exports = router;

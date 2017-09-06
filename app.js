@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 
 
 
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 9000;
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
 
 

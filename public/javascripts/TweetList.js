@@ -3,19 +3,17 @@
   'use strict';
 
   angular.module('Twitter').controller('TweetList', TweetList);
-  TweetList.$inject = ['$scope','$resource','$timeout','TweetService','UserTagsService'];
-  function TweetList($scope, $resource, $timeout,TweetService,UserTagsService ) {
+  TweetList.$inject = ['$scope','$resource','$timeout','TweetService','UserTagsService','toaster'];
+  function TweetList($scope, $resource, $timeout,TweetService,UserTagsService,toaster ) {
     var vm = this;
     vm.tweetsResult = [];
     vm.page = 1;
     vm.aResult=null;
     vm.user={};
-
     vm.taglist=[];
     vm.listID=[];
 
     function init () {
-
       UserTagsService.GetUserByUserName('alagresta').then(
         function(response) {
           vm.user=response.data;
@@ -48,7 +46,6 @@
       * requests and processes tweet data
       */
       function getTweets (page) {
-
         TweetService.TweetsByUser(vm.user.id,vm.page).then(
           function(response) {
             vm.tweetsResult=(vm.tweetsResult).concat(response.data);
@@ -56,17 +53,12 @@
             vm.page = vm.page+1;
           },
           function(response) {
-
             return "error"
-
           });
-
-
         }
 
 
         function getTags(id){
-
           UserTagsService.GetTagsByUserId(id).then(
             function(response) {
               vm.taglist=response.data;
@@ -76,15 +68,34 @@
             });
           }
 
-          /**
-          * binded to 'Get More Tweets' button
-          */
-          vm.getMoreTweets = function () {
-            getTweets(vm.page);
-          }
-
-
-          init();
+          vm.deleteTag = function (tag){
+            UserTagsService.DeleteTag(tag.tag,vm.user.id).then(
+              function(response) {
+                vm.taglist.splice(vm.taglist.indexOf(tag),1);
+                toaster.pop({type: 'success', title: 'Operación exitosa', body: 'Se ha eliminado : '+ tag.tag,
+                showCloseButton: true
+              });
+            },
+            function(response) {
+              toaster.pop({type: 'error', title: 'Errora', body: 'La operacíon no ha podido realizarse',
+              showCloseButton: true
+            });
+          });
         }
 
-      })();
+        /**
+        * binded to 'Get More Tweets' button
+        */
+        vm.getMoreTweets = function () {
+          getTweets(vm.page);
+        }
+
+        function errorAlert() {
+          var toastMsr ='<strong>Se ha producido un error al realizar la operación</strong>';
+          AlertService.Alert('error', 'Atención', toastMsr );
+
+        }
+        init();
+      }
+
+    })();
