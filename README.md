@@ -85,7 +85,17 @@ There is 4 db 4 entities , 3 tables (users, tweet_posts, subscriptions) and one 
 	* oEmbed 			varchar(1000) 
 	* tweet_id 			bigint(70) 	
 
-#### 3.2 SUBSCRIPTIONS
+#### 3.3 SUBSCRIPTIONS
 	* userid	<Primary> 	int(11) 	
 	* network 	<Primary>	varchar(50) 
 	* tag		<Primary> 	varchar(100)
+	
+	
+#### 3.4 TWEETS_VIEW 
+Used to get the db tweets and display them in UI,  order by tweet_id desc 
+	* id_str 		bigint(80) 		
+	* user_id 		int(11) 		
+	* tag 			varchar(45) 	
+	* created_at	 	date
+	* oEmbed 		varchar(1000) 	
+	* tweet_id 		bigint(70)
