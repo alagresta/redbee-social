@@ -91,8 +91,7 @@ There is 4 db 4 entities , 3 tables (users, tweet_posts, subscriptions) and one 
 	* tag		<Primary> 	varchar(100)
 	
 	
-#### 3.4 TWEETS_VIEW 
-Used to get the db tweets and display them in UI,  order by tweet_id desc 
+#### 3.4 TWEETS_VIEW : Used to get the db tweets and display them in UI,  order by tweet_id desc 
 	* id_str 		bigint(80) 		
 	* user_id 		int(11) 		
 	* tag 			varchar(45) 	
