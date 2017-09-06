@@ -16,16 +16,14 @@
  
  
  #### 1.2 - Front End Dependencies: 
- *   "async": "^2.5.0",
- *   "body-parser": "~1.17.1",
- *   "ejs": "~0.8.5",
- *   "escape-html-in-json": "^1.0.0",
- *   "express": "~4.2.0",
- *   "mysql": "^2.14.1",
- *   "node-instagram": "^3.0.0",
- *   "node-schedule": "^1.2.4",
- *   "qs": "*",
- *   "twit": "^1.1.18"
+ *   angular - 1.6.4
+ *   ngtweet
+ *   bootstrap - 3.2.0
+ *   font-awesome - 4.7.0
+ *   momentJS - 2.7.0
+ *   masonry - 3.1.5
+ 
+
 
  
 ## 2 - Project configuration file (config.sample.js) 
