@@ -73,11 +73,11 @@ twitter: {
 There is 4 db 4 entities , 3 tables (users, tweet_posts, subscriptions) and one view (tweets_view)
 
 #### 3.1 USERS
-	* id 		<Primary> 	 int(11)
-	* username  			 varchar(100)
-	* name 				 varchar(100)
-	* lastname 			 varchar(100)
-	* email 			 varchar(100)
+	* id 		<Primary> 	int(11)
+	* username  			varchar(100)
+	* name 				varchar(100)
+	* lastname 			varchar(100)
+	* email 			varchar(100)
 	
 #### 3.2 TWEET_POSTS
 	* id_strPrimary <Primary> 	bigint(80) 			
@@ -86,3 +86,8 @@ There is 4 db 4 entities , 3 tables (users, tweet_posts, subscriptions) and one 
 	* created_at 			date 	
 	* oEmbed 			varchar(1000) 
 	* tweet_id 			bigint(70) 	
+
+#### 3.2 SUBSCRIPTIONS
+	* userid	<Primary> 	int(11) 	
+	* network 	<Primary>	varchar(50) 
+	* tag		<Primary> 	varchar(100)
