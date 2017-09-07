@@ -22,7 +22,7 @@ module.exports = {
 		supportBigNumbers:true
 	},
 	schedulerConfig:{
-		timeConfig:'*/1 * * * *',
+		timeConfig:'*/15 * * * *',
 	}
 
 };

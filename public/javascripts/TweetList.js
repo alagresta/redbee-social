@@ -1,4 +1,3 @@
-
 (function () {
   'use strict';
 
@@ -12,6 +11,8 @@
     vm.user={};
     vm.taglist=[];
     vm.listID=[];
+    vm.loading=true;
+    vm.newTag='';
 
     function init () {
       UserTagsService.GetUserByUserName('alagresta').then(
@@ -23,23 +24,26 @@
         function(response) {
           console.log('error');
         });
-
-
       }
 
       vm.startLayout = function(){
-        setTimeout(startLayoutConfig, 3500)
+        setTimeout(startLayoutConfig, 2000)
       }
       function    startLayoutConfig(){
+          vm.loading=false;
         // initiate masonry.js
         vm.msnry = new Masonry('#tweet-list', {
           columnWidth: 200,
           itemSelector: '.tweet-item',
           transitionDuration: 0,
-          isFitWidth: true
+          isFitWidth: true,
+          horizontalOrder: true,
+          isAnimated:true,
+          animationOptions:{"duration":250,"easing":"linear","queue":false}
         });
         vm.msnry.reloadItems();
         vm.msnry.layout();
+
       }
 
       /**
@@ -89,6 +93,23 @@
         vm.getMoreTweets = function () {
           getTweets(vm.page);
         }
+
+        /**
+        * requests and processes tweet data
+        */
+        vm.followTag = function() {
+          UserTagsService.AddTagToUser(vm.user.id,vm.newTag).then(
+            function(response) {
+
+              var  tag = response.data[0];
+              vm.taglist.push(tag);
+
+            },
+            function(response) {
+              return "error"
+            });
+          }
+
 
         function errorAlert() {
           var toastMsr ='<strong>Se ha producido un error al realizar la operación</strong>';

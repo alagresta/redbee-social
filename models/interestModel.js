@@ -45,7 +45,7 @@ interestModel.insertSub = function(id,tag,nw,callback)
 {
 	if (connection)
 	{
-		var query = 'INSERT INTO subscription VALUES '+
+		var query = 'INSERT INTO subscriptions VALUES '+
 			"("+id+",'"+tag+"','"+nw+"')";
 		connection.query(query, function(error, result)
 		{
@@ -55,7 +55,8 @@ interestModel.insertSub = function(id,tag,nw,callback)
 			}
 			else
 			{
-				callback(null,{"insertId" : result.insertId});
+				var newtag={userid:id,network:tag,tag:nw};
+				callback(null,[newtag]);
 			}
 		});
 	}

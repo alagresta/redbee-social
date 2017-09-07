@@ -1,6 +1,6 @@
 var express = require('express');
 var insterest = require('../models/interestModel');
-
+var poolTweets = require('../utils/poolTweets');
 var twitterModel = require('../models/twitterModel');
 var router = express.Router();
 
@@ -82,13 +82,14 @@ router.put("/interest/:userId/:tag", function(req,res)
 	var id = req.params.userId;
 	var tag = req.params.tag;
 	var nw = 'tw';
-
+console.log("ADDING"+ tag);
 	if(!isNaN(id))
 	{
-		insterest.insertSub(id,tag,nw,function(error, data)
+		insterest.insertSub(id,nw,tag,function(error, data)
 		{
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
+				poolTweets.updateTweets();
 				res.json(200,data);
 			}
 			else

@@ -8,7 +8,7 @@ var mysql = require('mysql');
 var config = require('../config.sample');
 //creamos la csonexion
 connection = mysql.createConnection(config.connectionData);
-var ITEMS_PER_PAGE = 20;
+var ITEMS_PER_PAGE = 10;
 var twitterModel = {};
 twitterModel.geTopTweetsByUser = function(id_user, max, callback) {
 	if (connection) {
