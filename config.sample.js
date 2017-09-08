@@ -15,9 +15,9 @@ module.exports = {
 
 	connectionData:
 	{
-		host: '172.30.15.68',
-		user: 'admin',
-		password: 'admin',
+		host: '127.5.53.2',
+		user: 'adminKsqjpPE',
+		password: 'qXbQaydy4EfJ',
 		database: 'redbee',
 		supportBigNumbers:true
 	},
