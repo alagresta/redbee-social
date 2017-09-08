@@ -28,7 +28,7 @@ function initIPAdress() {
             adr = 'localhost';
     }
 
-    ipaddress = adr;
+    server_ip_address = adr;
 }
 
 
