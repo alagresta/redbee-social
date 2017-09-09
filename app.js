@@ -20,19 +20,20 @@ app.use(bodyParser.json());
 
 //var port = process.env.PORT || 8080;        // set our port
 function initIPAdress() {
-    var adr = process.env.OPENSHIFT_NODEJS_IP;
-    if (typeof adr === "undefined") {
+  var ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
+
+
+    if (typeof ip === "undefined") {
             //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
             //  allows us to run/test the app locally.
             console.warn('No OPENSHIFT_NODEJS_IP var, using localhost');
-            adr = 'localhost';
+            ip = 'localhost';
     }
 
     server_ip_address = adr;
 }
+var server_port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 
-
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 // var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
 
 
