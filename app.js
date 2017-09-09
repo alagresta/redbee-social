@@ -30,7 +30,7 @@ function initIPAdress() {
             ip = 'localhost';
     }
 
-    server_ip_address = adr;
+    server_ip_address = ip;
 }
 var server_port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 
