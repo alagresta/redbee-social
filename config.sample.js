@@ -15,9 +15,9 @@ module.exports = {
 
 	connectionData:
 	{
-		host: '127.0.0.1',
-		user: 'root',
-		password: '',
+		host: 'process.env.OPENSHIFT_MYSQL_DB_HOST',
+		user: 'process.env.OPENSHIFT_MYSQL_DB_USERNAME',
+		password: 'process.env.OPENSHIFT_MYSQL_DB_PASSWORD',
 		database: 'redbee',
 		supportBigNumbers:true
 	},
