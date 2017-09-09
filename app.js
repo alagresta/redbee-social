@@ -10,7 +10,7 @@ var appConfig = require('./config.sample');
 var poolTweets = require('./utils/poolTweets');
 var apiRootURL = '/api';
 var path = require('path');
-
+var server_ip_address ='';
 
 
 //configure app to use bodyParser()
