@@ -13,6 +13,14 @@ module.exports = {
 		  accessToken:'1357988431.13aa8a5.2a6e00193fec432a8d6b5f8f72b662e7'
 		},
 
+		connectionDataLocal:
+		{
+			host: '127.0.0.1',
+			user: 'root',
+			password: '',
+			database: 'redbee'
+		},
+
 	connectionData:
 	{
 		host: '127.5.53.2',

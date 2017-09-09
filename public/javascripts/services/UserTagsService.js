@@ -38,6 +38,7 @@
     }
 
     function AddTagToUser(userID,tag) {
+      tag = tag.replace('#', '%23');
       return $http.put('/api/interest/'+userID+'/'+tag).then(handleSuccess, handleError('Error adding tag'));
     }
 

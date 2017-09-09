@@ -138,21 +138,7 @@ router.get("/usersTweets/:id/:page", function(req,res)
 			else
 			{
 				res.json(503,{"msg":"no tweets"});
-				// var aUser ={id:id};
-				// poolTweets.updateTweetByUser(aUser, false, function(error, datay) {
-				// 	if (datay) {
-				// 		insterest.getUserSub(id, function(error, datax) {
-				// 			if (typeof datax !== 'undefined' && datax.length > 0) {
-				// 					console.log("OK OK OK OK OK OK OK OK OK OK OK OK");
-				// 				res.json(200, datax);
-				// 			} else {
-				//
-				// 				console.log("errrorororororooror");
-				// 			}
-				// 	});
-				// }
-				//
-				// });
+
 			}
 		});
 	}
