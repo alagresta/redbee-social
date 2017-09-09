@@ -10,7 +10,7 @@ var appConfig = require('./config.sample');
 var poolTweets = require('./utils/poolTweets');
 var apiRootURL = '/api';
 var path = require('path');
-var server_ip_address ='';
+
 
 
 //configure app to use bodyParser()
@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 
 //var port = process.env.PORT || 8080;        // set our port
 function initIPAdress() {
-  var ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
+  var ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP ;
 
 
     if (typeof ip === "undefined") {
@@ -32,7 +32,7 @@ function initIPAdress() {
 
     server_ip_address = ip;
 }
-var server_port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+var server_port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
 // var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || 'localhost';
 
