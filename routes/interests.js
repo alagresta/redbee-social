@@ -89,7 +89,7 @@ console.log("ADDING"+ tag);
 		{
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
-				poolTweets.updateTweets();
+				//poolTweets.updateTweets();
 				res.json(200,data);
 			}
 			else
