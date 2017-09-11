@@ -86,9 +86,11 @@ router.get('/init/:userid', function(req, res) {
 		}
 	});
 });
-
 router.get('/', function(req, res) {
 	 res.render('index', { title: 'Twitter Dashboard' });
 	});
 
+	router.get('/home/*', function(req, res) {
+		 res.render('index', { title: 'Twitter Dashboard' });
+		});
 module.exports = router;
