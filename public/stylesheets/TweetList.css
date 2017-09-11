@@ -22,9 +22,9 @@ blockquote.twitter-tweet {
 }*/
 
 twitterwidget{
-  max-width: 380px!important;
-  min-width: 360px!important;
-  min-height: 200px;
+     max-width: 335px!important;
+    min-width: 300px!important;
+    min-height: 200px;
 }
 ,.tweet-item{
   max-width: 380px!important;
