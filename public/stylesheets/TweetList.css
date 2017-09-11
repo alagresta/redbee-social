@@ -26,7 +26,14 @@ twitterwidget{
   min-width: 360px!important;
   min-height: 200px;
 }
+,.tweet-item{
+  max-width: 380px!important;
+  min-width: 360px!important;
 
+}
+
+#tweet-list { visibility: hidden; }
+#tweet-list.masonry { visibility: visible; }
 
 
 label.hash {
@@ -99,4 +106,35 @@ h1 {
 	width: auto;
 	height: 32px;
 	float: right;
+}
+
+
+.tweet-btn {
+  background: #FFFFFF;
+  background-image: -webkit-linear-gradient(top, #FFFFFF, #EEEEEE);
+  background-image: -moz-linear-gradient(top, #FFFFFF, #EEEEEE);
+  background-image: -ms-linear-gradient(top, #FFFFFF, #EEEEEE);
+  background-image: -o-linear-gradient(top, #FFFFFF, #EEEEEE);
+  background-image: linear-gradient(to bottom, #FFFFFF, #EEEEEE);
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  font-family: Arial;
+  color: #3498db;
+  font-size: 24px;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  border:none;
+}
+
+.tweet-btn:hover {
+  background: #3498db;
+   background-image: -webkit-linear-gradient(top, #3498db, #3498cc);
+   background-image: -moz-linear-gradient(top, #3498db, #3498cc);
+   background-image: -ms-linear-gradient(top, #3498db, #3498cc);
+   background-image: -o-linear-gradient(top, #3498db, #3498cc);
+   background-image: linear-gradient(to bottom, #3498db, #3498cc);
+   color:#FFFFFF;
+  text-decoration: none;
+  border:none;
 }

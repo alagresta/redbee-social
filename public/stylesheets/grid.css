@@ -1,0 +1,29 @@
+@import "compass/css3";
+
+*, *:before, *:after {box-sizing:  border-box !important;}
+
+
+article {
+ -moz-column-width: 23em;
+ -webkit-column-width: 23em;
+ -moz-column-gap: 1em;
+ -webkit-column-gap: 1em;
+
+}
+
+section {
+ display: inline-block;
+ margin:  0rem;
+ padding:  0rem;
+ width:  100%;
+}
+
+
+p {
+ margin:  1rem 0;
+}
+
+
+
+
+/*  styles for background color, etc; not necessary for this thing to work  */

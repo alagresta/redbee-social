@@ -13,7 +13,7 @@
     vm.listID=[];
     vm.loading=true;
     vm.newTag='';
-
+vm.loading = false;
     function init () {
       UserTagsService.GetUserByUserName('alagresta').then(
         function(response) {
@@ -28,22 +28,10 @@
 
       vm.startLayout = function(){
         setTimeout(startLayoutConfig, 2000)
+
       }
       function    startLayoutConfig(){
-          vm.loading=false;
-        // initiate masonry.js
-        vm.msnry = new Masonry('#tweet-list', {
-          columnWidth: 200,
-          itemSelector: '.tweet-item',
-          transitionDuration: 0,
-          isFitWidth: true,
-          horizontalOrder: true,
-          isAnimated:true,
-          animationOptions:{"duration":250,"easing":"linear","queue":false}
-        });
-        vm.msnry.reloadItems();
-        vm.msnry.layout();
-
+vm.loading = false;
       }
 
       /**
@@ -52,6 +40,9 @@
       function getTweets (page) {
         TweetService.TweetsByUser(vm.user.id,vm.page).then(
           function(response) {
+
+
+
             vm.tweetsResult=(vm.tweetsResult).concat(response.data);
             var  tw = response.data;
             vm.page = vm.page+1;
@@ -98,10 +89,14 @@
         * requests and processes tweet data
         */
         vm.followTag = function() {
+
+
           UserTagsService.AddTagToUser(vm.user.id,vm.newTag).then(
             function(response) {
 
               var  tag = response.data[0];
+
+
               vm.taglist.push(tag);
 
             },

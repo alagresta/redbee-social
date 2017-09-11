@@ -18,7 +18,9 @@ module.exports = {
 			host: '127.0.0.1',
 			user: 'root',
 			password: '',
-			database: 'redbee'
+			database: 'redbee',
+			supportBigNumbers:true,
+			itemsPerPage:10
 		},
 
 	connectionData:
@@ -27,10 +29,11 @@ module.exports = {
 		user: 'adminKsqjpPE',
 		password: 'qXbQaydy4EfJ',
 		database: 'redbee',
-		supportBigNumbers:true
+		supportBigNumbers:true,
+		itemsPerPage:10
 	},
 	schedulerConfig:{
-		timeConfig:'*/15 * * * *',
+		timeConfig:'*/25 * * * *',
 	}
 
 };

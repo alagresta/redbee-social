@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
   <link rel='stylesheet' href='/stylesheets/TweetList.css' />
-
+  <link rel='stylesheet' href='/stylesheets/grid.css' />
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-resource.min.js"></script>
   <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.5/angular-sanitize.js"></script> -->
@@ -24,8 +24,8 @@
   <script src="/javascripts/services/UserTagsService.js"></script>
   <script src="/javascripts/modules/ngtweet.min.js"></script>
 <script src="/javascripts/modules/alertService.js"></script>
-
-  <script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
+<!--
+  <script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script> -->
 </head>
 <body>
 
@@ -62,22 +62,30 @@
       </div>
     </div>
 
+  <div class="row clearfix">
+    <article ng-hide="TWList.loading">
+      <section  ng-repeat="tweet in TWList.tweetsResult" repeat-end="TWList.startLayout()">
+    <twitter-widget twitter-widget-id="tweet.tweet_id">  </twitter-widget>
+      </section>
+    </article>
+</div>
+<!--
     <div class="row clearfix">
-      <div class="col-lg-12">
+      <div class="col-lg-12" >
         <div id="tweet-list">
-          <div ng-repeat="tweet in TWList.tweetsResult" class="tweet-item" repeat-end="TWList.startLayout()">
-            <twitter-widget twitter-widget-id="tweet.tweet_id">
+          <div ng-repeat="tweet in TWList.tweetsResult" class="tweet-item" >
+            <twitter-widget twitter-widget-id="tweet.tweet_id">  </twitter-widget>
 
 
-             </twitter-widget>
           </div>
         </div>
       </div>
     </div>
-
+-->
     <div class="row">
       <div class="col-lg-12">
-        <button type="button" class="load-more-btn btn btn-default" ng-click="TWList.getMoreTweets()">Get More Tweets</button>
+        <button type="button" class="tweet-btn"
+        ng-click="TWList.getMoreTweets()">Get More Tweets</button>
 
       </div>
     </div>
