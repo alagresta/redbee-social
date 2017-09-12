@@ -1,3 +1,3 @@
 'use strict';
 
-angular.module('Twitter', [ 'ngResource','ngtweet','ngRoute','toaster']);
+angular.module('Twitter', [ 'ngResource','ngtweet','ngRoute','toaster','ngAnimate']);

@@ -89,12 +89,18 @@ console.log("ADDING"+ tag);
 		{
 			if (typeof data !== 'undefined' && data.length > 0)
 			{
-				poolTweets.updateTweets();
-				res.json(200,data);
+				poolTweets.addTagTweetByUser(id,tag,function(error, datatw) {
+					if (datatw) {
+						console.log("polled tweets for tag "+ tag + "and user " + id);
+					} else {
+						res.json(404,{"msg":"error pooling threads"});
+					}
+				});
+					res.json(200,data);
 			}
 			else
 			{
-				res.json(404,{"msg":"notExist"});
+				res.json(404,{"msg":"arror adding tag " + tag});
 			}
 		});
 	}

@@ -63,14 +63,14 @@ twitterModel.insertTweet = function(tweetdata, callback) {
 
 		var sqlExists = 'SELECT * FROM redbee.tweet_posts WHERE 	id_str = ' + tweetdata.string_id;
 
-		connection.query(sqlExists, function(err, row) {
+		//connection.query(sqlExists, function(err, row) {
 			//si existe la id del usuario a eliminar
-			if (row.length > 0) {
-				console.log('repeted ' + tweetdata.tweetid);
-				callback(null, {
-					"msg": "reapeted id"
-				});
-			} else {
+			// if (row.length > 0) {
+			// 	console.log('repeted ' + tweetdata.tweetid);
+			// 	callback(null, {
+			// 		"msg": "reapeted id"
+			// 	});
+			// } else {
 				connection.query(queryInsert, function(error, result) {
 					if (error) {
 						console.log(error);
@@ -85,8 +85,8 @@ twitterModel.insertTweet = function(tweetdata, callback) {
 						});
 					}
 				});
-			}
-		});
+		//	}
+		//});
 	}
 }
 //eliminar un usuario pasando la id a eliminar

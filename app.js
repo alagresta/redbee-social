@@ -84,5 +84,5 @@ var int = 1;
 
 var montlyJob = scheduler.scheduleJob(appConfig.schedulerConfig.timeConfig, function(){
   console.log('starting scheduleJob...');
- poolTweets.updateTweets();
+ poolTweets.updateTweets(false);
 });

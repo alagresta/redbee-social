@@ -28,23 +28,68 @@
         });
     }
 
-    vm.startLayout = function() {
-      setTimeout(startLayoutConfig, 2000)
+    vm.deleteTag = function(tag) {
+      UserTagsService.DeleteTag(tag.tag, vm.user.id).then(
+        function(response) {
+          vm.taglist.splice(vm.taglist.indexOf(tag), 1);
+          toaster.pop({
+            type: 'success',
+            title: 'Operación exitosa',
+            body: 'Se ha eliminado : ' + tag.tag,
+            showCloseButton: true
+          });
+          setTimeout(reloadAllTweets, 1500);
 
+        },
+        function(response) {
+          toaster.pop({
+            type: 'error',
+            title: 'Errora',
+            body: 'La operacíon no ha podido realizarse',
+            showCloseButton: true
+          });
+        });
     }
 
-    function startLayoutConfig() {
-      vm.loading = false;
+
+    vm.getMoreTweets = function() {
+      getTweets(vm.page);
     }
 
-    /**
-     * requests and processes tweet data
-     */
+
+    vm.followTag = function() {
+
+      if (searchTag(vm.newTag)) {
+        vm.newTag = '';
+      } else {
+
+
+        UserTagsService.AddTagToUser(vm.user.id, vm.newTag).then(
+          function(response) {
+            var tag = response.data[0];
+            vm.taglist.push(tag);
+            setTimeout(reloadAllTweets, 1500);
+            vm.newTag = '';
+
+          },
+          function(response) {
+            return "error"
+          });
+      }
+    }
+
+    vm.renderedTrue = function(index) {
+      vm.tweetsResult[index].rendered = true;
+    }
+
     function getTweets(page) {
       TweetService.TweetsByUser(vm.user.id, vm.page).then(
         function(response) {
-          vm.tweetsResult = (vm.tweetsResult).concat(response.data);
-          var tw = response.data;
+          var array = response.data;
+          for (var i = 0; i < array.length; i++) {
+            array[i].rendered = false;
+            vm.tweetsResult.push(array[i])
+          }
           vm.page = vm.page + 1;
         },
         function(response) {
@@ -54,11 +99,12 @@
 
 
 
+    /*    PRIVATE FUNCTIONS       */
 
     function reloadAllTweets() {
-          vm.page = 1;
-          vm.tweetsResult = [];
-          getTweets(vm.page);
+      vm.page = 1;
+      vm.tweetsResult = [];
+      getTweets(vm.page);
     }
 
 
@@ -72,69 +118,14 @@
         });
     }
 
-    vm.deleteTag = function(tag) {
-      UserTagsService.DeleteTag(tag.tag, vm.user.id).then(
-        function(response) {
-          vm.taglist.splice(vm.taglist.indexOf(tag), 1);
-          toaster.pop({
-            type: 'success',
-            title: 'Operación exitosa',
-            body: 'Se ha eliminado : ' + tag.tag,
-            showCloseButton: true
-          });
-            setTimeout(reloadAllTweets, 2000);
+    function searchTag(tag) {
+      for (var i = 1; i < vm.taglist.length; i++) {
+        if (vm.taglist[i].tag.toUpperCase() == tag.toUpperCase()) {
+          return true;
+        }
 
-        },
-        function(response) {
-          toaster.pop({
-            type: 'error',
-            title: 'Errora',
-            body: 'La operacíon no ha podido realizarse',
-            showCloseButton: true
-          });
-        });
-    }
-
-    /**
-     * binded to 'Get More Tweets' button
-     */
-    vm.getMoreTweets = function() {
-      getTweets(vm.page);
-    }
-
-    /**
-     * requests and processes tweet data
-     */
-     vm.followTag = function() {
-
-     if (searchTag(vm.newTag)) {
-       vm.newTag='';
-     } else {
-
-
-       UserTagsService.AddTagToUser(vm.user.id, vm.newTag).then(
-         function(response) {
-           var tag = response.data[0];
-           vm.taglist.push(tag);
-           setTimeout(reloadAllTweets, 2000);
-           vm.newTag='';
-
-         },
-         function(response) {
-           return "error"
-         });
-     }
-   }
-
-
-    function searchTag(tag){
-    for (var i = 1; i < vm.taglist.length; i++) {
-      if (vm.taglist[i].tag.toUpperCase() == tag.toUpperCase()) {
-        return true;
       }
-
-    }
-        return false;
+      return false;
     }
 
     function errorAlert() {

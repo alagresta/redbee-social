@@ -127,4 +127,53 @@ poolTweets.updateTweetByUser = function(aUser, isMax, callback) {
   });
 
 }
+
+
+
+
+poolTweets.addTagTweetByUser = function(userID,aTag, callback) {
+  TwUtil.tweetsByTag(aTag, '', '', function(error, data) {
+    if (data) {
+
+      var tweets = [];
+      for (var j = 0; j < data.length; j++) {
+
+
+        if (data[j].oEmbed) {
+          var newTweet = {
+            id: data[j].id_str,
+            userid: userID,
+            tag: data[j].userTag,
+            created_at: data[j].created_at,
+            oEmbed: data[j].oEmbed.html,
+            string_id: data[j].id,
+          }
+          tweets.push(newTweet);
+
+        }
+      }
+
+      var calls = [];
+      tweets.forEach(function(aTweet) {
+        calls.push(function(callback) {
+          TwitterModel.insertTweet(aTweet, function(error, data) {
+            if (data) {
+              //console.log(CLASS+"- Thread Tweet updated")
+              callback(null, aTweet);
+            }
+          });
+        })
+      });
+      Async.parallel(calls, function(err, result) {
+        if (err) return console.log(CLASS + ' - ' + err);
+      });
+
+    } else {
+      console.log(CLASS + ' - no tweets by tag');
+    }
+  });
+      callback(null, "OK");
+}
+
+
 module.exports = poolTweets;

@@ -22,9 +22,11 @@ blockquote.twitter-tweet {
 }*/
 
 twitterwidget{
-  max-width: 380px!important;
-  min-width: 360px!important;
+
+/*  max-width: 335px!important;*/
+  min-width: 300px!important;
   min-height: 200px;
+
 }
 ,.tweet-item{
   max-width: 380px!important;
@@ -137,4 +139,44 @@ h1 {
    color:#FFFFFF;
   text-decoration: none;
   border:none;
+}
+
+.item.ng-move,
+.item.ng-enter,
+.item.ng-leave {
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+
+.item.ng-leave.ng-leave-active,
+.item.ng-move,
+.item.ng-enter {
+  opacity:0;
+}
+
+.item.ng-leave,
+.item.ng-move.ng-move-active,
+.item.ng-enter.ng-enter-active {
+  opacity:1;
+}
+
+
+
+.animate-show {
+  -moz-transition:all linear 1s;
+  -o-transition:all linear 1s;
+  transition:all linear 1s;
+  display:block!important;
+  -webkit-transition:all linear 1s;
+  transition:all linear 1s;
+  opacity:1;
+}
+
+.animate-show.ng-hide-add,
+.animate-show.ng-hide-remove {
+  display:block!important;
+}
+
+.animate-show.ng-hide {
+  opacity:0;
 }

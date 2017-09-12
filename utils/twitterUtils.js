@@ -28,6 +28,7 @@ twitterUtils.tweetsByTag= function(atag,sinceID,maxID,callback)
 	var oEmbedTweets = [];
 	var tweets = [];
 	var q= this.getUserOrTagQuery(atag);
+
 	var params =  { 'q':q , 'count': TWEET_COUNT , 'max_id':maxID, 'since_id':sinceID };
 
 	twitter.get(SEARCH_URL, params, function (err, data, resp) {
